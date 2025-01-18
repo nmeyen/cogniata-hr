@@ -4,6 +4,13 @@ import shap
 import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit.components.v1 as components
+
+def st_shap(plot, height=300):
+    """Helper to display a SHAP plot (force or otherwise) in Streamlit."""
+    # This injects SHAP's minimal JavaScript plus the plot's HTML
+    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+    components.html(shap_html, height=height)
 
 def main():
     # Load the logo image
@@ -68,7 +75,8 @@ def main():
         row_index_t = st.slider("Select a row index in X_test for Time-to-Fill", 0, len(X_test_t)-1, 0)
         single_shap_t = shap_vals_time_test[row_index_t]
         st_html_t = shap.plots.force(single_shap_t, matplotlib=False,show=False)
-        st.components.v1.html(st_html_t.html(), height=300)
+        #st.components.v1.html(st_html_t.html(), height=300)
+        st_shap(st_html_t, height=300)
 
     # -----------------------------
     # 2. CANDIDATE SUCCESS VISUALIZATIONS
@@ -90,7 +98,8 @@ def main():
         row_index_s = st.slider("Select a row index in X_test for Candidate Success", 0, len(X_test_s)-1, 0)
         single_shap_s = shap_vals_succ_test[row_index_s]
         st_html_s = shap.plots.force(single_shap_s, matplotlib=False,show=False)
-        st.components.v1.html(st_html_s.html(), height=300)
+        #st.components.v1.html(st_html_s.html(), height=300)
+        st_shap(st_html_s, height=300)
     else:
         st.write("Candidate Success Model not available (check data generation).")
 
