@@ -67,7 +67,7 @@ def main():
         st.write("### Force Plot for a Single Row")
         row_index_t = st.slider("Select a row index in X_test for Time-to-Fill", 0, len(X_test_t)-1, 0)
         single_shap_t = shap_vals_time_test[row_index_t]
-        st_html_t = shap.plots.force(single_shap_t, matplotlib=False)
+        st_html_t = shap.plots.force(single_shap_t, matplotlib=True,show=False)
         st.components.v1.html(st_html_t.html(), height=300)
 
     # -----------------------------
@@ -89,7 +89,7 @@ def main():
         st.write("### Force Plot for a Single Row")
         row_index_s = st.slider("Select a row index in X_test for Candidate Success", 0, len(X_test_s)-1, 0)
         single_shap_s = shap_vals_succ_test[row_index_s]
-        st_html_s = shap.plots.force(single_shap_s, matplotlib=False)
+        st_html_s = shap.plots.force(single_shap_s, matplotlib=True,show=False)
         st.components.v1.html(st_html_s.html(), height=300)
     else:
         st.write("Candidate Success Model not available (check data generation).")
